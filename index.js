@@ -52,7 +52,7 @@ app.get("/api/shipping/get",async(req,res)=>{
       return res.status(200).json(shipping);
     }
     const shipping = await prisma.shipping.findMany({
-      where:{id:parseInt(userId)},
+      where:{userId:parseInt(userId)},
     })
     return res.status(200).json(shipping)
   }
