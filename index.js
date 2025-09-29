@@ -17,7 +17,7 @@ app.post("/api/shipping/create",async(req,res)=>{
     const shipping= await prisma.shipping.create({
       data:{userId,productId,count}
     });
-    return res.status(200).json(shipping);
+    return res.status(201).json(shipping);
   }
   catch(error){
     console.log(error);
@@ -28,8 +28,8 @@ app.post("/api/shipping/create",async(req,res)=>{
 app.put("/api/shipping/cancel",async(req,res)=>{
   try{
     const {shippingId}=req.body;
-    if(!userId || !productId || !count){
-      return res.status(404).json({"error": "Missing shippingId", })
+    if(!shippingId){
+      return res.status(404).json({"error": "Missing shippingId" })
     }
     const shipping= await prisma.shipping.update({
       where:{id:shippingId},
@@ -52,13 +52,13 @@ app.get("/api/shipping/get",async(req,res)=>{
       return res.status(200).json(shipping);
     }
     const shipping = await prisma.shipping.findMany({
-      where:{id:userId},
+      where:{id:parseInt(userId)},
     })
     return res.status(200).json(shipping)
   }
   catch(error){
     console.log(error);
-    return res.status(500).json({err:"Internal Sevrer error"})
+    return res.status(500).json({err:"Internal Server error"})
   }
 });
 
