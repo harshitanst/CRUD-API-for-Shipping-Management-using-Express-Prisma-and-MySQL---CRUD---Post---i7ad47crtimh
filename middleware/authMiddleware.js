@@ -1,5 +1,6 @@
 const verifySecret=(req,res,next)=>{
-    const incomingShippingSecret=req.headers["SHIPPING_SECRET_KEY"];
+    const headers = req.headers || {};
+    const incomingShippingSecret=headers["shipping_secret_key"];
     const localSecretKey= process.env.SHIPPING_SECRET_KEY
     if(!incomingShippingSecret){
         return res.status(403).json({error:"SHIPPING_SECRET_KEY is missing or invalid."});
