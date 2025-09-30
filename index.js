@@ -1,8 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config();
 const { verifySecret } = require('./middleware/authMiddleware');
 const { prisma } = require("./db/config");
-dotenv.config();
+
 
 const app = express();
 app.use(express.json());
